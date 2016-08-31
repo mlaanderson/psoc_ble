@@ -100,13 +100,13 @@ for the application to safely initiate data transactions (GATT, GAP Security, an
 with the peer BLE device.
 Event parameter is of type uint8.
 * CYBLE_STACK_STATE_BUSY (0x01) = CYBLE_STACK_STATE_BUSY indicates application that BLE stack's internal buffers
-*                   are about to be filled, and the remaining buffers are required to respond peer BLE device
-*                   After this event, application shall not initiate (GATT, GAP Security and L2CAP data transactions). 
-*                   However application shall respond to peer initiated transactions to prevent BLE protocol timeouts
-*                   to occur.
-*                   Application initiated data transactions can be resumed after CYBLE_EVT_STACK_BUSY_STATUS
-*                   event with parameter 'CYBLE_STACK_STATE_FREE' is received.
-*
+    are about to be filled, and the remaining buffers are required to respond peer BLE device
+    After this event, application shall not initiate (GATT, GAP Security and L2CAP data transactions). 
+    However application shall respond to peer initiated transactions to prevent BLE protocol timeouts
+    to occur.
+    Application initiated data transactions can be resumed after CYBLE_EVT_STACK_BUSY_STATUS
+    event with parameter 'CYBLE_STACK_STATE_FREE' is received.
+
 * CYBLE_STACK_STATE_FREE (0x00) = CYBLE_STACK_STATE_FREE indicates application that pending transactions are completed
 *                   and sufficient buffers are available to process application initiated transactions.
 *                   The 'CYBLE_EVT_STACK_BUSY_STATUS' event with 'CYBLE_STACK_STATE_FREE' is indicated to 
