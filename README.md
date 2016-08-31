@@ -31,63 +31,63 @@ Authentication Failed Error Codes
 #### enum
 
 ##### CYBLE_GAP_AUTH_ERROR_NONE  = 0
-/** No Error */
+No Error
 
 ##### CYBLE_GAP_AUTH_ERROR_PASSKEY_ENTRY_FAILED = 1
-/** User input of passkey failed, for example, the user cancelled the operation */
+User input of passkey failed, for example, the user cancelled the operation 
 
 ##### CYBLE_GAP_AUTH_ERROR_OOB_DATA_NOT_AVAILABLE = 2
-/** Out Of Band data is not available, applicable if NFC is supported */
+Out Of Band data is not available, applicable if NFC is supported 
 
 ##### CYBLE_GAP_AUTH_ERROR_AUTHENTICATION_REQ_NOT_MET = 3
-/** Pairing procedure cannot be performed as authentication
-    requirements cannot be met due to IO capabilities of one or both devices. */
+Pairing procedure cannot be performed as authentication
+requirements cannot be met due to IO capabilities of one or both devices. 
 
 ##### CYBLE_GAP_AUTH_ERROR_CONFIRM_VALUE_NOT_MATCH = 4
-/** Confirm value does not match the calculated compare value  */
+Confirm value does not match the calculated compare value  
 
 ##### CYBLE_GAP_AUTH_ERROR_PAIRING_NOT_SUPPORTED = 5
-/** Pairing is not supported by the device */
+Pairing is not supported by the device 
 
 ##### CYBLE_GAP_AUTH_ERROR_INSUFFICIENT_ENCRYPTION_KEY_SIZE = 6
-/** Insufficient key size for the security requirements of this device */
+Insufficient key size for the security requirements of this device 
 
 ##### CYBLE_GAP_AUTH_ERROR_COMMAND_NOT_SUPPORTED = 7
-/** command received is not supported */
+command received is not supported 
 
 ##### CYBLE_GAP_AUTH_ERROR_UNSPECIFIED_REASON = 8
-/** Pairing failed due to an unspecified reason */
+Pairing failed due to an unspecified reason 
 
 ##### CYBLE_GAP_AUTH_ERROR_REPEATED_ATTEMPTS = 9
-/** Pairing or authentication procedure is disallowed because too little time
-    has elapsed since last pairing request or security request. */
+Pairing or authentication procedure is disallowed because too little time
+has elapsed since last pairing request or security request. 
 
 ##### CYBLE_GAP_AUTH_ERROR_INVALID_PARAMETERS = 10
-/** Invalid Parameters in Request - Invalid Command length and Parameter value outside range */
+Invalid Parameters in Request - Invalid Command length and Parameter value outside range 
 
 ##### CYBLE_GAP_AUTH_ERROR_DHKEY_CHECK_FAILED = 11
-/** Indicates to the remote device that the DHKey Check value received doesn't
-    match the one calculated by the local device */
+Indicates to the remote device that the DHKey Check value received doesn't
+match the one calculated by the local device 
 
 ##### CYBLE_GAP_AUTH_ERROR_NUMERIC_COMPARISON_FAILED = 12
-/** Indicates that the confirm values in the numeric comparison protocol
-    do not match */
+Indicates that the confirm values in the numeric comparison protocol
+do not match 
 
 ##### CYBLE_GAP_AUTH_ERROR_BR_EDR_PAIRING_IN_PROGRESS = 13
-/** Indicates that the pairing over the LE transport failed due to a Pairing
-    Request sent over the BR/EDR transport is in process. */
+Indicates that the pairing over the LE transport failed due to a Pairing
+Request sent over the BR/EDR transport is in process. 
 
 ##### CYBLE_GAP_AUTH_ERROR_CROSS_TRANSPORT_KEY_GEN_DER_NOT_ALLOWED = 14
-/** Indicates that the BR/EDR Link Key generated on the BR/EDR transport cannot
-    be used to derive and distribute keys for LE transport */
+Indicates that the BR/EDR Link Key generated on the BR/EDR transport cannot
+be used to derive and distribute keys for LE transport 
 
 ##### CYBLE_GAP_AUTH_ERROR_AUTHENTICATION_TIMEOUT = 21
-/** Authentication process timeout, if pairing timeout happens for first time, 
-    application can choose to re-initiate the pairing procedure. If timeout occurs again, 
-    app may choose to disconnect peer device. */
+Authentication process timeout, if pairing timeout happens for first time, 
+application can choose to re-initiate the pairing procedure. If timeout occurs again, 
+app may choose to disconnect peer device. 
 
 ##### CYBLE_GAP_AUTH_ERROR_LINK_DISCONNECTED = 24
-/** Link disconnected */
+Link disconnected 
 
 ## Events
 | Category | Int Val | Event Name |
@@ -274,7 +274,7 @@ and the result of the encryption operation.
 
 #### CYBLE_EVT_GAP_AUTH_FAILED
 Authentication process failed between two devices. The return value of type 
-CYBLE_GAP_AUTH_FAILED_REASON_T indicates the reason for failure.
+[CYBLE_GAP_AUTH_FAILED_REASON_T](#cyble_gap_auth_failed_reason_t) indicates the reason for failure.
 
 #### CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP
 Peripheral device has started/stopped advertising. 
