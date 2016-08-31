@@ -13,10 +13,81 @@ It is application's responsibility to disconnect or keep the channel on depends 
 i.e. GATT procedure timeout: Application may choose to disconnect.
 
 #### Enum
-* CYBLE_GAP_ADV_MODE_TO = 1, Advertisement time set by application has expired
-* CYBLE_GAP_SCAN_TO = 2, Scan time set by application has expired
-* CYBLE_GATT_RSP_TO = 3, GATT procedure timeout
-* CYBLE_GENERIC_TO = 4, Generic timeout
+##### CYBLE_GAP_ADV_MODE_TO = 1
+Advertisement time set by application has expired
+
+##### CYBLE_GAP_SCAN_TO = 2
+Scan time set by application has expired
+
+##### CYBLE_GATT_RSP_TO = 3
+GATT procedure timeout
+
+##### CYBLE_GENERIC_TO = 4
+Generic timeout
+
+### CYBLE_GAP_AUTH_FAILED_REASON_T
+Authentication Failed Error Codes
+
+#### enum
+
+##### CYBLE_GAP_AUTH_ERROR_NONE  = 0
+/** No Error */
+
+##### CYBLE_GAP_AUTH_ERROR_PASSKEY_ENTRY_FAILED = 1
+/** User input of passkey failed, for example, the user cancelled the operation */
+
+##### CYBLE_GAP_AUTH_ERROR_OOB_DATA_NOT_AVAILABLE = 2
+/** Out Of Band data is not available, applicable if NFC is supported */
+
+##### CYBLE_GAP_AUTH_ERROR_AUTHENTICATION_REQ_NOT_MET = 3
+/** Pairing procedure cannot be performed as authentication
+    requirements cannot be met due to IO capabilities of one or both devices. */
+
+##### CYBLE_GAP_AUTH_ERROR_CONFIRM_VALUE_NOT_MATCH = 4
+/** Confirm value does not match the calculated compare value  */
+
+##### CYBLE_GAP_AUTH_ERROR_PAIRING_NOT_SUPPORTED = 5
+/** Pairing is not supported by the device */
+
+##### CYBLE_GAP_AUTH_ERROR_INSUFFICIENT_ENCRYPTION_KEY_SIZE = 6
+/** Insufficient key size for the security requirements of this device */
+
+##### CYBLE_GAP_AUTH_ERROR_COMMAND_NOT_SUPPORTED = 7
+/** command received is not supported */
+
+##### CYBLE_GAP_AUTH_ERROR_UNSPECIFIED_REASON = 8
+/** Pairing failed due to an unspecified reason */
+
+##### CYBLE_GAP_AUTH_ERROR_REPEATED_ATTEMPTS = 9
+/** Pairing or authentication procedure is disallowed because too little time
+    has elapsed since last pairing request or security request. */
+
+##### CYBLE_GAP_AUTH_ERROR_INVALID_PARAMETERS = 10
+/** Invalid Parameters in Request - Invalid Command length and Parameter value outside range */
+
+##### CYBLE_GAP_AUTH_ERROR_DHKEY_CHECK_FAILED = 11
+/** Indicates to the remote device that the DHKey Check value received doesn't
+    match the one calculated by the local device */
+
+##### CYBLE_GAP_AUTH_ERROR_NUMERIC_COMPARISON_FAILED = 12
+/** Indicates that the confirm values in the numeric comparison protocol
+    do not match */
+
+##### CYBLE_GAP_AUTH_ERROR_BR_EDR_PAIRING_IN_PROGRESS = 13
+/** Indicates that the pairing over the LE transport failed due to a Pairing
+    Request sent over the BR/EDR transport is in process. */
+
+##### CYBLE_GAP_AUTH_ERROR_CROSS_TRANSPORT_KEY_GEN_DER_NOT_ALLOWED = 14
+/** Indicates that the BR/EDR Link Key generated on the BR/EDR transport cannot
+    be used to derive and distribute keys for LE transport */
+
+##### CYBLE_GAP_AUTH_ERROR_AUTHENTICATION_TIMEOUT = 21
+/** Authentication process timeout, if pairing timeout happens for first time, 
+    application can choose to re-initiate the pairing procedure. If timeout occurs again, 
+    app may choose to disconnect peer device. */
+
+##### CYBLE_GAP_AUTH_ERROR_LINK_DISCONNECTED = 24
+/** Link disconnected */
 
 ## Events
 | Category | Int Val | Event Name |
