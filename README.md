@@ -216,3 +216,109 @@ Encryption change event for active connection. 'evParam' can be decoded as
 This is an informative event for application when there is a change in encryption. 
 
 Application may choose to ignore it.
+
+#### CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE
+This event is generated at the GAP Central and the Peripheral end after connection parameter update
+is requested from the host to the controller. Event parameter is a pointer to a structure of
+type CYBLE_GAP_CONN_PARAM_UPDATED_IN_CONTROLLER_T.
+        
+#### CYBLE_EVT_GAPC_SCAN_START_STOP
+Central device has started/stopped scanning. 
+
+This event is generated after making a call to CyBle_GapcStartDiscovery and 
+CyBle_GapcStopDiscovery APIs. The event parameter contains the status, which is of type 'uint8'.
+
+If the data is '0x00', it indicates 'success'; Anything else indicates 'failure'.
+
+#### CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT
+Indication that the SMP keys exchange with peer device is complete, the event handler
+is expected to store the peer device keys, especially IRK which is used to resolve the
+peer device after the connection establishment.
+
+Event parameter returns data of type CYBLE_GAP_SMP_KEY_DIST_T containing the peer device keys.
+
+#### CYBLE_EVT_GAP_NUMERIC_COMPARISON_REQUEST
+This event indicates that the device needs to display passkey during 
+secure connection pairing procedure. CyBle_GapAuthPassKeyReply() is
+required to be called with valid parameters on receiving this event.
+Since no key to be entered by the user for Numeric comparison, 
+parameter passkey for the function CyBle_GapAuthPassKeyReply will be 
+ignored.
+
+Event parameter is a pointer to a 6 digit Passkey value.
+
+#### CYBLE_EVT_GAP_KEYPRESS_NOTIFICATION
+This event is generated when keypress (Secure connections) is received
+from peer device.
+
+#### CYBLE_EVT_GAP_OOB_GENERATED_NOTIFICATION
+This event is generated when OOB generation for Secure connections is complete.  
+
+Event parameter is of type 'CYBLE_GAP_OOB_DATA_T'
+
+#### CYBLE_EVT_GAP_DATA_LENGTH_CHANGE
+The LE Data Length Change event notifies the Host of a change to either the maximum Payload length or 
+the maximum transmission time of Data Channel PDUs in either direction. The values reported are the maximum
+that will actually be used on the connection following the change. Event parameter is of type 
+'CYBLE_GAP_CONN_DATA_LENGTH_T'
+
+#### CYBLE_EVT_GAP_ENHANCE_CONN_COMPLETE
+The LE Enhanced Connection Complete event indicates application that a new connection has been created when 
+Link Layer Privacy is enabled in component customizer. 
+
+Event parameter is of type 'CYBLE_GAP_ENHANCE_CONN_COMPLETE_T'
+
+#### CYBLE_EVT_GAPC_DIRECT_ADV_REPORT
+The LE Direct Advertising Report event indicates that directed advertisements have been received where 
+the advertiser is using a resolvable private address for the InitA field in the ADV_DIRECT_IND PDU and the
+Scanning_Filter_Policy is equal to 0x02 or 0x03. Event parameter is of type 'CYBLE_GAPC_DIRECT_ADV_REPORT_T'
+
+#### CYBLE_EVT_GAP_SMP_NEGOTIATED_AUTH_INFO
+ MP negotiated auth info event is raised as soon as SMP has completed pairing properties (feature exchange)
+negotiation. The event parameter is CYBLE_GAP_AUTH_INFO_T. CYBLE_GAP_AUTH_INFO_T will have the 
+negotiated parameter, the pairing should either pass with these negotiated parameters or may fail. This event
+is applicable to both GAP Central and GAP Peripheral devices. In GAP Peripheral, this event is called from 
+API-CyBle_GappAuthReqReply context.
+
+#### CYBLE_EVT_GATTC_ERROR_RSP
+#### CYBLE_EVT_GATT_CONNECT_IND
+#### CYBLE_EVT_GATT_DISCONNECT_IND
+#### CYBLE_EVT_GATTS_XCNHG_MTU_REQ
+#### CYBLE_EVT_GATTC_XCHNG_MTU_RSP
+#### CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP
+#### CYBLE_EVT_GATTC_READ_BY_TYPE_RSP
+#### CYBLE_EVT_GATTC_FIND_INFO_RSP
+#### CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP
+#### CYBLE_EVT_GATTC_READ_RSP
+#### CYBLE_EVT_GATTC_READ_BLOB_RSP
+#### CYBLE_EVT_GATTC_READ_MULTI_RSP
+#### CYBLE_EVT_GATTS_WRITE_REQ
+#### CYBLE_EVT_GATTC_WRITE_RSP
+#### CYBLE_EVT_GATTS_WRITE_CMD_REQ
+#### CYBLE_EVT_GATTS_PREP_WRITE_REQ
+#### CYBLE_EVT_GATTS_EXEC_WRITE_REQ
+#### CYBLE_EVT_GATTC_EXEC_WRITE_RSP
+#### CYBLE_EVT_GATTC_HANDLE_VALUE_NTF
+#### CYBLE_EVT_GATTC_HANDLE_VALUE_IND
+#### CYBLE_EVT_GATTS_HANDLE_VALUE_CNF
+#### CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ
+#### CYBLE_EVT_GATTC_STOP_CMD_COMPLETE
+#### CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ
+#### CYBLE_EVT_GATTC_LONG_PROCEDURE_END
+#### CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ
+#### CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP
+#### CYBLE_EVT_L2CAP_COMMAND_REJ
+#### CYBLE_EVT_L2CAP_CBFC_CONN_IND
+#### CYBLE_EVT_L2CAP_CBFC_CONN_CNF
+#### CYBLE_EVT_L2CAP_CBFC_DISCONN_IND
+#### CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF
+#### CYBLE_EVT_L2CAP_CBFC_DATA_READ
+#### CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND
+#### CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND
+#### CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND
+#### CYBLE_EVT_QUAL_SMP_PAIRING_REQ_RSP
+#### CYBLE_EVT_QUAL_SMP_LOCAL_PUBLIC_KEY
+#### CYBLE_EVT_QUAL_SMP_PAIRING_FAILED_CMD
+#### CYBLE_EVT_PENDING_FLASH_WRITE
+#### CYBLE_EVT_LE_PING_AUTH_TIMEOUT
+#### CYBLE_EVT_MAX
