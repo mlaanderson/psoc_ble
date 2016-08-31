@@ -75,6 +75,8 @@ Information I've collected about Cypress PSoC BLE
 | Generic | 0x00FF | [CYBLE_EVT_MAX](#CYBLE_EVT_MAX) |
 
 
-<a name="CYBLE_EVT_HOST_INVALID"></a>
 ### CYBLE_EVT_HOST_INVALID
-This event is triggered by BLE stack when stack is in a bad state, Restarting stack is the only way to get out of the state
+This event is triggered by BLE stack when stack is in a bad state, restarting stack is the only way to get out of the state
+
+### CYBLE_EVT_STACK_ON
+This event is received when BLE stack is initialized and turned ON by invoking CyBle_StackInit () function.
