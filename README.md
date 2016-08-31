@@ -2,6 +2,8 @@
 Information I've collected about Cypress PSoC BLE
 
 ## Events
+| Category | Int Val | Event Name |
+| --- | --- | --- |
 | Generic | 0x0000 | [CYBLE_EVT_HOST_INVALID](CYBLE_EVT_HOST_INVALID) |
 | Generic | 0x0001 | [CYBLE_EVT_STACK_ON](CYBLE_EVT_STACK_ON) |
 | Generic | 0x0002 | [CYBLE_EVT_TIMEOUT](CYBLE_EVT_TIMEOUT) |
