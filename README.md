@@ -1,6 +1,23 @@
 # psoc_ble
 Information I've collected about Cypress PSoC BLE
 
+* [Events](#events)
+* [Types](#types)
+
+## Types
+
+### CYBLE_TO_REASON_CODE_T
+BLE stack timeout. This is received with [CYBLE_EVT_TIMEOUT](#cyble_evt_timeout) event.
+
+It is application's responsibility to disconnect or keep the channel on depends on type of timeouts.
+i.e. GATT procedure timeout: Application may choose to disconnect.
+
+#### Enum
+* CYBLE_GAP_ADV_MODE_TO = 1, Advertisement time set by application has expired
+* CYBLE_GAP_SCAN_TO = 2, Scan time set by application has expired
+* CYBLE_GATT_RSP_TO = 3, GATT procedure timeout
+* CYBLE_GENERIC_TO = 4, Generic timeout
+
 ## Events
 | Category | Int Val | Event Name |
 | --- | --- | --- |
@@ -85,7 +102,7 @@ This event is received when BLE stack is initialized and turned ON by invoking C
 
 #### CYBLE_EVT_TIMEOUT
 This event is received when there is a timeout and application needs to handle the event. Timeout reason is
-defined by CYBLE_TO_REASON_CODE_T.
+defined by [CYBLE_TO_REASON_CODE_T](#cyble_to_reason_code_t).
 
 #### CYBLE_EVT_HARDWARE_ERROR
 This event indicates that some internal hardware error has occurred. Reset of the hardware may be required.
