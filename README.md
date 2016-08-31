@@ -274,37 +274,144 @@ the advertiser is using a resolvable private address for the InitA field in the 
 Scanning_Filter_Policy is equal to 0x02 or 0x03. Event parameter is of type 'CYBLE_GAPC_DIRECT_ADV_REPORT_T'
 
 #### CYBLE_EVT_GAP_SMP_NEGOTIATED_AUTH_INFO
- MP negotiated auth info event is raised as soon as SMP has completed pairing properties (feature exchange)
+SMP negotiated auth info event is raised as soon as SMP has completed pairing properties (feature exchange)
 negotiation. The event parameter is CYBLE_GAP_AUTH_INFO_T. CYBLE_GAP_AUTH_INFO_T will have the 
 negotiated parameter, the pairing should either pass with these negotiated parameters or may fail. This event
 is applicable to both GAP Central and GAP Peripheral devices. In GAP Peripheral, this event is called from 
 API-CyBle_GappAuthReqReply context.
 
+### GATT Events
+
 #### CYBLE_EVT_GATTC_ERROR_RSP
+The event is received by the Client when the Server cannot perform the requested 
+operation and sends out an error response. Event parameter is a pointer to a structure
+of type CYBLE_GATTC_ERR_RSP_PARAM_T.
+
 #### CYBLE_EVT_GATT_CONNECT_IND
+This event is generated at the GAP Peripheral end after connection is completed with peer Central device.
+For GAP Central device, this event is generated as in acknowledgment of receiving this event successfully
+by BLE Controller. Once connection is done, no more event is required but if fails to establish connection,
+'CYBLE_EVT_GATT_DISCONNECT_IND' is passed to application.
+
+Event parameter is a pointer to a structure of type CYBLE_CONN_HANDLE_T.
+
 #### CYBLE_EVT_GATT_DISCONNECT_IND
+GATT is disconnected. Nothing is returned as part of the event parameter.
+
 #### CYBLE_EVT_GATTS_XCNHG_MTU_REQ
+'GATT MTU Exchange Request' received from GATT client device. Event parameter 
+contains the MTU size of type CYBLE_GATT_XCHG_MTU_PARAM_T.
+
 #### CYBLE_EVT_GATTC_XCHNG_MTU_RSP
+'GATT MTU Exchange Response' received from server device. Event parameter is a
+pointer to a structure of type CYBLE_GATT_XCHG_MTU_PARAM_T.
+
 #### CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP
+'Read by Group Type Response' received from server device. Event parameter
+is a pointer to a structure of type CYBLE_GATTC_READ_BY_GRP_RSP_PARAM_T.
+
 #### CYBLE_EVT_GATTC_READ_BY_TYPE_RSP
+'Read by Type Response' received from server device. Event parameter is a
+pointer to a structure of type CYBLE_GATTC_READ_BY_TYPE_RSP_PARAM_T.
+
 #### CYBLE_EVT_GATTC_FIND_INFO_RSP
+'Find Information Response' received from server device. Event parameter is
+a pointer to a structure of type 'CYBLE_GATTC_FIND_INFO_RSP_PARAM_T.
+
 #### CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP
+'Find by Type Value Response' received from server device. Event parameter is
+a pointer to a structure of type CYBLE_GATTC_FIND_BY_TYPE_RSP_PARAM_T.
+
 #### CYBLE_EVT_GATTC_READ_RSP
+'Read Response' from server device. Event parameter is a pointer to a
+structure of type CYBLE_GATTC_READ_RSP_PARAM_T.
+
 #### CYBLE_EVT_GATTC_READ_BLOB_RSP
+'Read Blob Response' from server. Event parameter is a pointer to a
+structure of type CYBLE_GATTC_READ_RSP_PARAM_T.
+
 #### CYBLE_EVT_GATTC_READ_MULTI_RSP
+'Read Multiple Responses' from server. Event parameter is a pointer
+to a structure of type CYBLE_GATTC_READ_RSP_PARAM_T. The 'actualLen' field
+should be ignored as it is unused in this event response.
+
 #### CYBLE_EVT_GATTS_WRITE_REQ
+'Write Request' from client device. Event parameter is a pointer to
+a structure of type CYBLE_GATTS_WRITE_REQ_PARAM_T.
+
 #### CYBLE_EVT_GATTC_WRITE_RSP
+'Write Response' from server device. Event parameter is a pointer
+to a structure of type CYBLE_CONN_HANDLE_T.
+
 #### CYBLE_EVT_GATTS_WRITE_CMD_REQ
+'Write Command' Request from client device. Event parameter is a 
+pointer to a structure of type CYBLE_GATTS_WRITE_CMD_REQ_PARAM_T.
+
 #### CYBLE_EVT_GATTS_PREP_WRITE_REQ
+'Prepare Write' Request from client device. Event parameter is a
+pointer to a structure of type CYBLE_GATTS_PREP_WRITE_REQ_PARAM_T.
+
 #### CYBLE_EVT_GATTS_EXEC_WRITE_REQ
+'Execute Write' request from client device. Event parameter is a
+pointer to a structure of type 'CYBLE_GATTS_EXEC_WRITE_REQ_T'
+This event will be triggered before GATT DB is modified. GATT Db will be updated 
+only if there is no error condition provided by application. In case of error condition triggered
+during stack validation, partial write will occur. Write will be canceled from that handle where 
+error has occurred and error response corresponding to that handle will be sent to remote.
+If at any point of time 'CYBLE_GATT_EXECUTE_WRITE_CANCEL_FLAG' is received in 
+execWriteFlag fields of 'CYBLE_GATTS_EXEC_WRITE_REQ_T' structure, then all previous 
+writes are canceled. For execute cancel scenario, all elements of 
+'CYBLE_GATTS_EXEC_WRITE_REQ_T' should be ignored except execWriteFlag and connHandle.
+
 #### CYBLE_EVT_GATTC_EXEC_WRITE_RSP
+'Execute Write' response from server device. Event parameter is a
+pointer to a structure of type CYBLE_GATTC_EXEC_WRITE_RSP_T.
+
 #### CYBLE_EVT_GATTC_HANDLE_VALUE_NTF
+Notification data received from server device. Event parameter
+is a pointer to a structure of type CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T.
+
 #### CYBLE_EVT_GATTC_HANDLE_VALUE_IND
+Indication data received from server device. Event parameter is
+a pointer to a structure of type CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T.
+
 #### CYBLE_EVT_GATTS_HANDLE_VALUE_CNF
+Confirmation to indication response from client device. Event
+parameter is a pointer to a structure of type CYBLE_CONN_HANDLE_T.
+
 #### CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ
+Confirmation to indication response from client device. Event
+parameter is a pointer to a structure of type CYBLE_GATTS_SIGNED_WRITE_CMD_REQ_PARAM_T. 
+if value.val parameter is set to Zero, then signature is not matched and ignored by stack.
+
 #### CYBLE_EVT_GATTC_STOP_CMD_COMPLETE
+Event indicating that GATT group procedure has stopped or completed, this event occurs
+only if application has called CyBle_GattcStopCmd API. 
+
+Event parameters shall be ignored.
+
 #### CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ
+Event parameter type is CYBLE_GATTS_CHAR_VAL_READ_REQ_T. It is triggered on server side 
+when client sends read request and when characteristic has CYBLE_GATT_DB_ATTR_CHAR_VAL_RD_EVENT 
+property set. This event could be ignored by application unless it need to response by error response which
+needs to be set in gattErrorCode field of event parameter.
+
 #### CYBLE_EVT_GATTC_LONG_PROCEDURE_END
+Event indicates that GATT long procedure is end and stack will not send any further
+requests to peer. Either this event or 'CYBLE_EVT_GATTC_ERROR_RSP' will be received
+by application. This event may get triggered for below GATT long procedures:
+
+1. CyBle_GattcDiscoverAllPrimaryServices
+1. CyBle_GattcDiscoverPrimaryServiceByUuid
+1. CyBle_GattcFindIncludedServices
+1. CyBle_GattcDiscoverAllCharacteristics
+1. CyBle_GattcDiscoverCharacteristicByUuid
+1. CyBle_GattcDiscoverAllCharacteristicDescriptors
+1. CyBle_GattcReadLongCharacteristicValues
+1. CyBle_GattcReadLongCharacteristicDescriptors
+
+Event parameter is ATT opcode for the corresponding long GATT Procedure.
+
 #### CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ
 #### CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP
 #### CYBLE_EVT_L2CAP_COMMAND_REJ
