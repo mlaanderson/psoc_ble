@@ -95,10 +95,13 @@ Part D, section 1.3. This event will be received only if there is an error.
 
 ### CYBLE_EVT_STACK_BUSY_STATUS
 This event is triggered by host stack if BLE stack is busy or not. 
+
 Event Parameter corresponding to this event will indicate the state of BLE stack's internal protocol buffers
 for the application to safely initiate data transactions (GATT, GAP Security, and L2CAP transactions)
 with the peer BLE device.
+
 Event parameter is of type uint8.
+
 * CYBLE_STACK_STATE_BUSY (0x01) = CYBLE_STACK_STATE_BUSY indicates application that BLE stack's internal buffers
     are about to be filled, and the remaining buffers are required to respond peer BLE device
     After this event, application shall not initiate (GATT, GAP Security and L2CAP data transactions). 
@@ -108,10 +111,21 @@ Event parameter is of type uint8.
     event with parameter 'CYBLE_STACK_STATE_FREE' is received.
 
 * CYBLE_STACK_STATE_FREE (0x00) = CYBLE_STACK_STATE_FREE indicates application that pending transactions are completed
-*                   and sufficient buffers are available to process application initiated transactions.
-*                   The 'CYBLE_EVT_STACK_BUSY_STATUS' event with 'CYBLE_STACK_STATE_FREE' is indicated to 
-*                   application if BLE Stack's internal buffer state has transitioned from 'CYBLE_STACK_STATE_BUSY'
-*                   to 'CYBLE_STACK_STATE_FREE'.
-*
+    and sufficient buffers are available to process application initiated transactions.
+    The 'CYBLE_EVT_STACK_BUSY_STATUS' event with 'CYBLE_STACK_STATE_FREE' is indicated to 
+    application if BLE Stack's internal buffer state has transitioned from 'CYBLE_STACK_STATE_BUSY'
+    to 'CYBLE_STACK_STATE_FREE'.
+
 To increase BLE stack's internal buffers count and achieve better throughput for attribute MTU greater then 32, 
-use MaxAttrNoOfBuffer parameter in the Expression view of the Advanced tab.    
+use MaxAttrNoOfBuffer parameter in the Expression view of the Advanced tab.   
+
+### CYBLE_EVT_MEMORY_REQUEST
+This event is received when stack wants application to provide memory to process remote request.
+
+Event parameter is of type CYBLE_MEMORY_REQUEST_T.
+
+This event is automatically handled by the component for the CYBLE_PREPARED_WRITE_REQUEST request. 
+The component allocates sufficient memory for the long write request with assumption that attribute MTU size 
+is negotiated to the minimum possible value. Application could use dynamic memory allocation to save static 
+RAM memory consumption. To enable this event for application level, set EnableExternalPrepWriteBuff parameter
+in the Expression view of the Advanced tab to the true.    
