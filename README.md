@@ -137,3 +137,46 @@ in the Expression view of the Advanced tab to the true.
 #### CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT
 This event is triggered every time a device is discovered; pointer to structure of type CYBLE_GAPC_ADV_REPORT_T 
 is returned as the event parameter.
+
+#### CYBLE_EVT_GAP_AUTH_REQ
+This event is received by Peripheral and Central devices. When it is received by Peripheral, peripheral 
+needs to Call CyBle_GappAuthReqReply() to reply to authentication request from Central.
+
+When this event is received by Central, that means the slave has requested Central to initiate authentication
+procedure. Central needs to call CyBle_GappAuthReq() to initiate authentication procedure.
+Pointer to structure of type CYBLE_GAP_AUTH_INFO_T is returned as the event parameter.
+
+#### CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST
+This event indicates that the device has to send passkey to be used during the pairing procedure. 
+CyBle_GapAuthPassKeyReply() is required to be called with valid parameters on receiving this event.
+
+Refer to Bluetooth Core Spec. 4.1, Part H, Section 2.3.5.1 Selecting STK Generation Method.
+
+Nothing is returned as part of the event parameter.
+
+#### CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST
+This event indicates that the device needs to display passkey during the pairing procedure.
+
+Refer to Bluetooth Core Spec. 4.1, Part H, Section 2.3.5.1 Selecting STK Generation Method.
+
+Pointer to data of type 'uint32' is returned as part of the event parameter. Passkey can
+be any 6-decimal-digit value.
+
+#### CYBLE_EVT_GAP_AUTH_COMPLETE
+This event indicates that the authentication procedure has been completed.
+
+The event parameter contains the security information as defined by CYBLE_GAP_AUTH_INFO_T.
+
+This event is generated at the end of the following three operations:
+
+* Authentication is initiated with a newly connected device
+
+* Encryption is initiated with a connected device that is already bonded
+
+* Re-Encryption is initiated with a connected device with link already encrypted
+
+During encryption/re-encryption, the Encryption Information exchanged during the pairing process
+is used to encrypt/re-encrypt the link. As this does not modify any of the authentication 
+parameters with which the devices were paired, this event is generated with NULL event data
+and the result of the encryption operation.
+
