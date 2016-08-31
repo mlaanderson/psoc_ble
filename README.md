@@ -180,3 +180,39 @@ is used to encrypt/re-encrypt the link. As this does not modify any of the authe
 parameters with which the devices were paired, this event is generated with NULL event data
 and the result of the encryption operation.
 
+#### CYBLE_EVT_GAP_AUTH_FAILED
+Authentication process failed between two devices. The return value of type 
+CYBLE_GAP_AUTH_FAILED_REASON_T indicates the reason for failure.
+
+#### CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP
+Peripheral device has started/stopped advertising. 
+This event is generated after making a call to CyBle_GappEnterDiscoveryMode and 
+CyBle_GappExitDiscoveryMode functions. The event parameter contains the status
+which is of type 'uint8'.
+
+If the data is '0x00', it indicates 'success'; Anything else indicates 'failure'.
+
+#### CYBLE_EVT_GAP_DEVICE_CONNECTED
+This event is generated at the GAP Peripheral end after connection is completed with peer Central device.
+For GAP Central device, this event is generated as in acknowledgment of receiving this event successfully
+by BLE Controller. Once connection is done, no more event is required but if fails to establish connection,
+'CYBLE_EVT_GAP_DEVICE_DISCONNECTED' is passed to application. ' CYBLE_EVT_GAP_ENHANCE_CONN_COMPLETE'
+event is triggered instead of 'CYBLE_EVT_GAP_DEVICE_CONNECTED', if Link Layer Privacy is enabled in component customizer.   
+
+Event parameter is a pointer to a structure of type CYBLE_GAP_CONN_PARAM_UPDATED_IN_CONTROLLER_T.
+
+#### CYBLE_EVT_GAP_DEVICE_DISCONNECTED
+Disconnected from remote device or failed to establish connection. Parameter returned with the event 
+contains pointer to the reason for disconnection, which is of type uint8. For details refer
+core spec 4.2, vol2, part D.
+
+#### CYBLE_EVT_GAP_ENCRYPT_CHANGE
+Encryption change event for active connection. 'evParam' can be decoded as
+
+* evParam[0] = 0x00 -> Encryption OFF
+* evParam[0] = 0x01 -> Encryption ON
+* Any other value of evParam[0] -> Error
+
+This is an informative event for application when there is a change in encryption. 
+
+Application may choose to ignore it.
