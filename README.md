@@ -130,9 +130,13 @@ This event is automatically handled by the component for the CYBLE_PREPARED_WRIT
 The component allocates sufficient memory for the long write request with assumption that attribute MTU size 
 is negotiated to the minimum possible value. Application could use dynamic memory allocation to save static 
 RAM memory consumption. To enable this event for application level, set EnableExternalPrepWriteBuff parameter
-in the Expression view of the Advanced tab to the true.    
+in the Expression view of the Advanced tab to the true.
+
+#### CYBLE_EVT_MAX
+Maximum value of CYBLE_EVENT_T type
 
 ### GAP Events
+0x20 to 0x3F
 
 #### CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT
 This event is triggered every time a device is discovered; pointer to structure of type CYBLE_GAPC_ADV_REPORT_T 
@@ -281,6 +285,7 @@ is applicable to both GAP Central and GAP Peripheral devices. In GAP Peripheral,
 API-CyBle_GappAuthReqReply context.
 
 ### GATT Events
+0x40 to 0x6F
 
 #### CYBLE_EVT_GATTC_ERROR_RSP
 The event is received by the Client when the Server cannot perform the requested 
@@ -412,20 +417,113 @@ by application. This event may get triggered for below GATT long procedures:
 
 Event parameter is ATT opcode for the corresponding long GATT Procedure.
 
+### L2CAP Events
+0x70 to 0x7F
+
 #### CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ
+This event indicates the connection parameter update received
+from the remote device. The application is expected to reply to L2CAP using the
+CyBle_L2capLeConnectionParamUpdateResponse() function to respond to the remote
+device, whether parameters are accepted or rejected.
+
 #### CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP
+This event indicates the connection parameter update response received
+from the master. Event Parameter pointer points to data with two possible values:
+
+* Accepted = 0x0000
+* Rejected  = 0x0001
+
+Data is of type unit16.
+
 #### CYBLE_EVT_L2CAP_COMMAND_REJ
+This event indicates that the request send over l2cap signaling has been
+rejected. Event parameter is a pointer to a structure of type
+CYBLE_L2CAP_COMMAND_REJ_REASON_T.
+
 #### CYBLE_EVT_L2CAP_CBFC_CONN_IND
+This event is used to inform application of the incoming L2CAP CBFC
+Connection Request. Event parameter is a pointer to a structure of type
+CYBLE_L2CAP_CBFC_CONN_IND_PARAM_T is returned.
+
 #### CYBLE_EVT_L2CAP_CBFC_CONN_CNF
+This event is used to inform application of the L2CAP CBFC Connection
+Response/Confirmation. Event parameter is a pointer to a structure of
+type CYBLE_L2CAP_CBFC_CONN_CNF_PARAM_T is returned.
+
 #### CYBLE_EVT_L2CAP_CBFC_DISCONN_IND
+This event is used to inform application of the L2CAP CBFC Disconnection
+Request received from the Peer device. Event parameter is a pointer to
+Local CID of type unit16.
+
 #### CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF
+This event is used to inform application of the L2CAP CBFC Disconnection
+confirmation/Response received from the Peer device. Event parameter is a
+pointer to a structure of type CYBLE_L2CAP_CBFC_DISCONN_CNF_PARAM_T.
+
 #### CYBLE_EVT_L2CAP_CBFC_DATA_READ
+This event is used to inform application of data received over L2CAP
+CBFC channel. Event parameter is a pointer to a structure of type
+CYBLE_L2CAP_CBFC_RX_PARAM_T.
+
 #### CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND
+This event is used to inform the application of receive credits reached
+low mark. After receiving L2CAP data/payload from peer device for a
+specification Channel, the available credits are calculated.
+
+If the credit count goes below the low mark, this event is called to inform
+the application of the condition, so that if the application wants it can
+send more credits to the peer device.
+
+Event parameter is a pointer to a structure of type
+CYBLE_L2CAP_CBFC_LOW_RX_CREDIT_PARAM_T.
+
 #### CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND
+This event is used to inform application of having received transmit
+credits. This event is called on receiving LE Flow Control Credit from peer
+device.
+
+Event parameter is a pointer to a structure of type
+CYBLE_L2CAP_CBFC_LOW_TX_CREDIT_PARAM_T.
+
+If the 'result' field of the received data is non-zero, this indicates an
+error. If the sum of 'credit' field value and the previously available credit
+at the peer device receiving credit information exceeds 65535, it indicates a
+'credit overflow' error.
+
+In case of error, the peer device receiving this event should initiate
+disconnection of the L2CAP channel by invoking CyBle_L2capDisconnectReq () 
+function.
+
 #### CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND
+This event is used to inform application of data transmission completion over L2CAP CBFC
+channel. Event parameter is of type 'CYBLE_L2CAP_CBFC_DATA_WRITE_PARAM_T' 
+This event will be deprecated in future. It is only kept for backward compatibility.
+It is not recommended to be used by new design.
+
+### Qualification Events
+0x80 to 0x8F
+
+Normally not defined.
+
 #### CYBLE_EVT_QUAL_SMP_PAIRING_REQ_RSP
+Tester to manipulate pairing request or response PDU. Event parameter is a pointer to 1 bytes data.
+Tester can manipulate the bits of the byte.
+
 #### CYBLE_EVT_QUAL_SMP_LOCAL_PUBLIC_KEY
+Tester to manipulate local Public Key. Event parameter is a pointer to local public key of size 64 Bytes.
+Tester can manipulate the bits/bytes.
+
 #### CYBLE_EVT_QUAL_SMP_PAIRING_FAILED_CMD
+Tester to assign pairing failed error code. Event parameter is a pointer to 16 bits value.
+Tester should assign error code to lower bits.
+
+### Future Use Events
+0x90 to 0xFE
+
 #### CYBLE_EVT_PENDING_FLASH_WRITE
+This event is used to inform application that flash write is pending
+stack internal data structures are modified and require backup.
+
 #### CYBLE_EVT_LE_PING_AUTH_TIMEOUT
-#### CYBLE_EVT_MAX
+LE PING Authentication Timeout Event to indicate that peer device has not responded
+with the valid MIC packet within the application configured ping authentication time.
