@@ -74,26 +74,28 @@ Information I've collected about Cypress PSoC BLE
 | Future Use | 0x00FB | [CYBLE_EVT_LE_PING_AUTH_TIMEOUT](#cyble_evt_le_ping_auth_timeout) |
 | Generic | 0x00FF | [CYBLE_EVT_MAX](#cyble_evt_max) |
 
-### CYBLE_EVT_HOST_INVALID
-This event is triggered by BLE stack when stack is in a bad state, restarting stack is the only way to get out
-of the state
+### Generic Events
 
-### CYBLE_EVT_STACK_ON
+#### CYBLE_EVT_HOST_INVALID
+This event is triggered by BLE stack when stack is in a bad state, restarting stack is the only way to get out
+of the state.
+
+#### CYBLE_EVT_STACK_ON
 This event is received when BLE stack is initialized and turned ON by invoking CyBle_StackInit () function.
 
-### CYBLE_EVT_TIMEOUT
+#### CYBLE_EVT_TIMEOUT
 This event is received when there is a timeout and application needs to handle the event. Timeout reason is
 defined by CYBLE_TO_REASON_CODE_T.
 
-### CYBLE_EVT_HARDWARE_ERROR
+#### CYBLE_EVT_HARDWARE_ERROR
 This event indicates that some internal hardware error has occurred. Reset of the hardware may be required.
 
-### CYBLE_EVT_HCI_STATUS
+#### CYBLE_EVT_HCI_STATUS
 This event is triggered by 'Host Stack' if 'Controller' responds with an error code for any HCI command.
 Event parameter returned will be an HCI error code as defined in Bluetooth 4.1 core specification, Volume 2,
 Part D, section 1.3. This event will be received only if there is an error.
 
-### CYBLE_EVT_STACK_BUSY_STATUS
+#### CYBLE_EVT_STACK_BUSY_STATUS
 This event is triggered by host stack if BLE stack is busy or not. 
 
 Event Parameter corresponding to this event will indicate the state of BLE stack's internal protocol buffers
@@ -119,7 +121,7 @@ Event parameter is of type uint8.
 To increase BLE stack's internal buffers count and achieve better throughput for attribute MTU greater then 32, 
 use MaxAttrNoOfBuffer parameter in the Expression view of the Advanced tab.   
 
-### CYBLE_EVT_MEMORY_REQUEST
+#### CYBLE_EVT_MEMORY_REQUEST
 This event is received when stack wants application to provide memory to process remote request.
 
 Event parameter is of type CYBLE_MEMORY_REQUEST_T.
@@ -129,3 +131,9 @@ The component allocates sufficient memory for the long write request with assump
 is negotiated to the minimum possible value. Application could use dynamic memory allocation to save static 
 RAM memory consumption. To enable this event for application level, set EnableExternalPrepWriteBuff parameter
 in the Expression view of the Advanced tab to the true.    
+
+### GAP Events
+
+#### CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT
+This event is triggered every time a device is discovered; pointer to structure of type CYBLE_GAPC_ADV_REPORT_T 
+is returned as the event parameter.
